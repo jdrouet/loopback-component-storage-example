@@ -1,0 +1,42 @@
+{
+  "name": "loopback-component-storage-example",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "pretest": "jshint .",
+    "posttest": "nsp check",
+    "postinstall": "npm run docker",
+    "docker": "npm run docker:postgres && npm run docker:mongo",
+    "docker:postgres": "npm run docker:postgres:pull; npm run docker:postgres:start; echo",
+    "docker:postgres:pull": "docker pull postgres",
+    "docker:postgres:start": "docker run -d -p 5433:5432 --name postgresql postgres",
+    "docker:postgres:inituser": "createuser -h localhost -p 5433 -U postgres -l -d -s storage-example",
+    "docker:postgres:initdb": "createdb -h localhost -p 5433 -U postgres -O storage-example storage-example",
+    "docker:postgres:inittable": "psql -h localhost -p 5433 -U storage-example storage-example -c \"CREATE TABLE fileinfos (id SERIAL PRIMARY KEY, container TEXT NOT NULL, filename TEXT NOT NULL, mimetype TEXT, objectid INTEGER UNIQUE NOT NULL)\"",
+    "docker:mongo": "npm run docker:mongo:pull && npm run docker:mongo:start",
+    "docker:mongo:pull": "docker pull mongo",
+    "docker:mongo:start": "docker run -d -p 27016:27017 --name mongodb mongo"
+  },
+  "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^0.14.0",
+    "loopback": "^2.22.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^2.1.0",
+    "loopback-component-storage-mongo": "^1.0.4",
+    "loopback-component-storage-postgres": "^1.1.1",
+    "loopback-datasource-juggler": "^2.39.0",
+    "serve-favicon": "^2.0.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.6",
+    "nsp": "^2.1.0"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "description": "loopback-component-storage-example"
+}

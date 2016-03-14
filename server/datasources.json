@@ -1,0 +1,19 @@
+{
+  "filestore-mongo": {
+    "host": "127.0.0.1",
+    "port": 27016,
+    "database": "database",
+    "name": "filestore-mongo",
+    "connector": "loopback-component-storage-mongo"
+  },
+  "filestore-postgres": {
+    "host": "127.0.0.1",
+    "port": 5433,
+    "database": "storage-example",
+    "username": "storage-example",
+    "password": "password",
+    "name": "filestore-postgres",
+    "table": "fileinfos",
+    "connector": "loopback-component-storage-postgres"
+  }
+}
